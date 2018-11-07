@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box{
+				position: absolute;
+				width: 200px;
+				height: 200px;
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box"></div>
+		<script src="cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//拖拽   cookie记录
+			
+			var oBox = document.getElementById("box");
+			
+			
+			if(getCookie("x")!=undefined){
+				oBox.style.left = getCookie("x");
+				oBox.style.top = getCookie("y");
+			}
+			
+			oBox.onmousedown = function(e){
+				var evt = e || event;
+				var _left = evt.offsetX;
+				var _top = evt.offsetY;
+				document.onmousemove = function(e){
+					var evt = e || event;
+					var x = evt.clientX - _left;
+					var y = evt.clientY - _top;
+					oBox.style.left = x + "px";
+					oBox.style.top = y + "px";
+				}
+				document.onmouseup = function(){
+					
+					var posX = oBox.style.left;
+					var posY = oBox.style.top;
+					
+					setCookie("x",posX,7);
+					setCookie("y",posY,7);
+					
+					
+					document.onmousemove = null;
+				}
+			}
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body,ul,li,p{
+				margin: 0;
+				padding: 0;
+				font-size: 14px;
+			}
+			li{
+				list-style: none;
+			}
+			img{
+				display: block;
+				border: none;
+			}
+			li{
+				float: left;
+				width: 220px;
+				border: 1px solid #CECECE;
+				padding: 10px;
+				margin:10px;
+			}
+			p{
+				margin: 10px 0;
+			}
+			.clearfix{
+				clear: both;
+			}
+			.clearfix:after{
+				display: block;
+				content: "";
+				width: 0;
+				height: 0;
+				overflow: hidden;
+				clear: both;
+			}
+		</style>
+	</head>
+	<body>
+		<ul id="productList" class="clearfix">
+		</ul>
+		<ul id="recordList" class="clearfix">
+			
+		</ul>
+		<script src="cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var productData = [{
+				prodId: 10001,
+				title: "送素描纸画架画板套装",
+				price: 100,
+				imgSrc: "1.jpg"
+			},{
+				prodId: 10002,
+				title: "送素描纸画架k写生素描画板",
+				price: 100,
+				imgSrc: "2.jpg"
+			},{
+				prodId: 10003,
+				title: "送素描纸4k写生素描画板",
+				price: 100,
+				imgSrc: "3.jpg"
+			},{
+				prodId: 10004,
+				title: "送素描纸画架画板套素描画板",
+				price: 100,
+				imgSrc: "2.jpg"
+			},{
+				prodId: 10005,
+				title: "送素描纸画k写生素描画板",
+				price: 100,
+				imgSrc: "3.jpg"
+			}];
+			
+			var oList = document.getElementById("productList");
+			for(var i = 0; i < productData.length; i++){
+				oList.innerHTML += "<li data-id='"+productData[i].prodId+"'><a href='javascript:;'><img src='"+productData[i].imgSrc+"'></a><p>"+productData[i].title+"</p><p>"+productData[i].price+"</p></li>"
+			}
+			
+			var aLi = oList.children;
+			var recordArr = [];
+			for(var i = 0; i < aLi.length; i++){
+				aLi[i].onclick = function(){
+					//console.log(this);
+					var prodId = this.getAttribute("data-id");
+					recordArr.push(prodId);
+					
+					var str = JSON.stringify(recordArr);
+					
+					setCookie("records",str,7);
+				}
+			}
+			
+			
+			//var str = JSON.stringify({a:11});
+			//var obj = JSON.parse(str);
+			//console.log(obj);
+			
+			
+			var aRecords = JSON.parse(getCookie("records"));
+			
+			//console.log(aRecords);
+			
+			var oRecords = document.getElementById("recordList");
+			
+			for(var i = 0; i < aRecords.length; i++){
+				for(var j = 0; j < productData.length; j++){
+					if(aRecords[i]==productData[j].prodId){
+						oRecords.innerHTML += "<li><a href='javascript:;'><img src='"+productData[j].imgSrc+"'></a><p>"+productData[j].title+"</p><p>"+productData[j].price+"</p></li>"
+					}
+				}
+			}
+			
+			
+			
+		</script>
+	</body>
+</html>

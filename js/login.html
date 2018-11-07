@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="cookie.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		用户名：<input type="text"><br>
+		密码：<input type="password"><br>
+		<label><input type="checkbox">一周内免登录</label><br>
+		<input type="button" value="登录">
+		<script type="text/javascript">
+			var aInput = document.getElementsByTagName("input");
+			if(getCookie("username")!= undefined){
+				aInput[0].value = getCookie("username");
+				aInput[1].value = getCookie("password");
+				aInput[2].checked = true;
+			}
+			
+			aInput[3].onclick = function(){
+				var val1 = aInput[0].value;
+				var val2 = aInput[1].value;
+				if(aInput[2].checked){
+					setCookie("username",val1,7);
+					setCookie("password",val2,7);
+				}else{
+					removeCookie("username");
+					removeCookie("password");
+				}
+				
+			}
+			
+		</script>
+	</body>
+</html>
